@@ -1,5 +1,11 @@
-url = "http://naver.com"
-my_str = url.replace("http://", "")
-my_str = my_str[0 : my_str.index(".")]
-password = my_str[0:3] + str(len(my_str)) + str(my_str.count("e")) + "!"
-print(f"{url}의 비밀번호는 {password}입니다.")
+def std_weight(height, gender):
+    if gender == "남자":
+        return height * height * 22
+    else:
+        return height * height * 21
+
+
+height = 181
+gender = "남자"
+weight = std_weight(height / 100, gender)
+print(f"키 {height} {gender}의 표준 체중: {weight}")
