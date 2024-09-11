@@ -1,39 +1,60 @@
-dist = [
-    [0, 100, 100, 100, 100, 100, 100],
-    [100, 0, 2, 5, 1, 100, 100],
-    [100, 2, 0, 3, 2, 100, 100],
-    [100, 5, 3, 0, 3, 1, 5],
-    [100, 1, 2, 3, 0, 1, 100],
-    [100, 100, 100, 1, 1, 0, 2],
-    [100, 100, 100, 5, 100, 2, 0]
+graph = [
+    [0, 4, 0, 0, 0, 0, 0, 8, 0],
+    [4, 0, 8, 0, 0, 0, 0, 11, 0],
+    [0, 8, 0, 7, 0, 4, 0, 0, 2],
+    [0, 0, 7, 0, 9, 14, 0, 0, 0],
+    [0, 0, 0, 9, 0, 10, 0, 0, 0],
+    [0, 0, 4, 14, 10, 0, 2, 0, 0],
+    [0, 0, 0, 0, 0, 2, 0, 1, 6],
+    [8, 11, 0, 0, 0, 0, 1, 0, 7],
+    [0, 0, 2, 0, 0, 0, 6, 7, 0]
 ]
 
+def dijkstra(graph):
+    start = 0
+    end = 4
+    n = len(graph)
+    distances = [float('inf')] * n
+    distances[start] = 0
+    visited = [False] * n
+    parent = [-1] * n
 
-def dijkstra(dist, start):
-    shortest_distances = [100] * 7
-    shortest_distances[start] = 0
-
-    visited = [False] * 7
-
-    for _ in range(7):
-        min_distance = 100
+    for _ in range(n):
+        min_distance = float('inf')
         min_index = -1
-        for i in range(7):
-            if not visited[i] and shortest_distances[i] < min_distance:
-                min_distance = shortest_distances[i]
+        for i in range(n):
+            if not visited[i] and distances[i] < min_distance:
+                min_distance = distances[i]
                 min_index = i
+
+        if min_index == -1 or min_index == end:
+            break
 
         visited[min_index] = True
 
-        for j in range(7):
-            if dist[min_index][j] != 100 and not visited[j]:
-                new_distance = shortest_distances[min_index] + dist[min_index][j]
-                if new_distance < shortest_distances[j]:
-                    shortest_distances[j] = new_distance
+        for j in range(n):
+            if graph[min_index][j] != 0 and not visited[j]:
+                new_distance = distances[min_index] + graph[min_index][j]
+                if new_distance < distances[j]:
+                    distances[j] = new_distance
+                    parent[j] = min_index
 
-    return shortest_distances
+    path = []
+    current = end
+    while current != -1:
+        path.append(current)
+        current = parent[current]
+    path.reverse()
 
+    return distances[end], path
 
-for start_node in range(1, 7):
-    shortest_distances = dijkstra(dist, start_node)
-    print(f"노드 {start_node}에서 각 노드까지의 최단 거리: {shortest_distances[1:]}")
+shortest_distance, shortest_path = dijkstra(graph)
+
+path_string = ""
+for node in shortest_path:
+    if path_string:
+        path_string += " -> "
+    path_string += str(node)
+
+print(f"노드 0에서 노드 4로 가는 최단 경로: {path_string}")
+print(f"노드 0에서 노드 4로 가는 최단 거리: {shortest_distance}")
