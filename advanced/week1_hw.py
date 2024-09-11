@@ -52,11 +52,11 @@ def dijkstra(graph):
 
 shortest_distance, shortest_path = dijkstra(graph)
 
-path_string = ""
+path = ""
 for node in shortest_path:
-    if path_string:
-        path_string += " -> "
-    path_string += str(node)
+    if path:
+        path += " -> "
+    path += str(node)
 
-print(f"노드 0에서 노드 4로 가는 최단 경로: {path_string}")
+print(f"노드 0에서 노드 4로 가는 최단 경로: {path}")
 print(f"노드 0에서 노드 4로 가는 최단 거리: {shortest_distance}")
