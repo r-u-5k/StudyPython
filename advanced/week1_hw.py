@@ -10,6 +10,7 @@ graph = [
     [0, 0, 2, 0, 0, 0, 6, 7, 0]
 ]
 
+
 def dijkstra(graph):
     start = 0
     end = 4
@@ -47,6 +48,7 @@ def dijkstra(graph):
     path.reverse()
 
     return distances[end], path
+
 
 shortest_distance, shortest_path = dijkstra(graph)
 
