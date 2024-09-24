@@ -3,5 +3,6 @@ import pandas as pd
 
 Solar = pd.read_csv('C:/Users/Jin/OneDrive/학교/강의자료/전기전자심화설계/Data1/Solar_4.csv')
 
-a = Solar.loc[0:100, 'DeliveryDT']
-print(a)
+Solar['DeliveryDT'] = pd.to_datetime(Solar['DeliveryDT'])
+
+print(Solar)
