@@ -5,3 +5,11 @@ waitseconds = 1
 HYOSUNG = "https://hess.hyosung.com/HsMain/HM020.aspx"
 
 DownloadPath = "C:/Users/yj999/Downloads"
+
+user = "postgres"
+host = "localhost"
+dbname = "postgres"
+port = 5432
+password = "yj9928"
+
+rotation = 1
