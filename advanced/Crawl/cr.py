@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 
 import params as pa
 
+
 # pd.set_option('display_width', 5000)
 # pd.set_option('display_max_width', 5000)
 # pd.set_option('display_max_columns', 5000)
@@ -92,6 +93,7 @@ def gen(TargetDay, Farm):  # TargetDay.Farm.Method
                 Data = pd.read_csv(FileName)
 
     return []
+
 
 if __name__ == "__main__":
     Farm = 1
