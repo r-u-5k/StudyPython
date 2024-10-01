@@ -12,4 +12,4 @@ dbname = "postgres"
 port = 5432
 password = "yj9928"
 
-rotation = 1
+rotation = 0

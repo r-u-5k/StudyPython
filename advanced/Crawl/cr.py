@@ -126,15 +126,15 @@ def getuploader(FilePath, Farm):
     xls_pv_html = pd.read_html(FilePath)[0]
 
     Result = pd.DataFrame(columns=['target', 'actual'])
-    Result.assign(target=xls_pv_html['시간', '시간'])
-    Result.assign(actual=xls_pv_html['생산량(kWh)', 'PV 발전량'])
-    Result.assign(actual=Result['actual'].round(0))
+    Result = Result.assign(target=xls_pv_html['시간', '시간'])
+    Result = Result.assign(actual=xls_pv_html['생산량(kWh)', 'PV 발전량'])
+    Result = Result.assign(actual=Result['actual'].round(0))
     Result.index = range(0, len(Result))
 
     RealGen = np.where(Result['target'] != 'Sum')
     Result = Result.loc[RealGen[0], :]
-    Result.assign(target=pd.to_datetime(Result['target'], format='%Y-%m-%d %H:%M', utc=False).dt.tz_localize(None))
-    Result.assign(site_id=Farm)
+    Result = Result.assign(target=pd.to_datetime(Result['target'], format='%Y-%m-%d %H:%M', utc=False).dt.tz_localize(None))
+    Result = Result.assign(site_id=Farm)
 
     for i in range(0, len(Result)):
         Target = Result.loc[i, 'target']
@@ -152,16 +152,20 @@ def getuploader(FilePath, Farm):
 
         if not Exists:
             print("Upload: ", Target, Actual, SiteID)
-            query = f"insert into solar (target, actual, site_id) values (TIMESTAMP {Target}, {Actual}, {SiteID})"
+            query = f"insert into solar (target, actual, site_id) values (TIMESTAMP '{Target}', {Actual}, {SiteID})"
             cur.execute(query)
 
         else:
             print("Duplicated ", Target, Actual, SiteID)
+
+    conn.commit()
+    cur.close()
+    conn.close()
 
     return Result
 
 
 if __name__ == "__main__":
     Farm = 1
-    TargetDay = '2024-09-30'
+    TargetDay = '2024-01-31'
     GetGenData(TargetDay, Farm)
