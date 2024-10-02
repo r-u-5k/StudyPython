@@ -1,6 +1,6 @@
 {
     "name": "Python 3",
-    "image": "docker-python",
+    "image": "ru5k/docker-python:latest",
     "customizations": {
       "vscode": {
         "extensions": [
