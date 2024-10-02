@@ -5,8 +5,7 @@ class Book(models.Model):
     title = models.CharField(max_length=50)
     author = models.CharField(max_length=50)
     category = models.CharField(max_length=50)
-    pages = models.IntegerField()
+    pages = models.IntegerField(null=True)
     price = models.IntegerField()
     published_date = models.DateField()
     description = models.TextField()
-

@@ -13,3 +13,11 @@ port = 5432
 password = "yj9928"
 
 rotation = 0
+
+Machine = 'RF'
+RF_Tree = 5000
+RF_njob = -1
+RF_Depth = 50
+RF_MinLeaf = 2
+RFMF = 'sqrt'
+max_samples = None  # 0.9
