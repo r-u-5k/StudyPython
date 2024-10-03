@@ -1,10 +1,12 @@
+import os
+
 CHROME_DRIVER_PATH = "C:/Dev/chromedriver-win64"
 
 waitseconds = 1
 
 HYOSUNG = "https://hess.hyosung.com/HsMain/HM020.aspx"
 
-DownloadPath = "C:/Users/yj999/Downloads"
+DownloadPath = os.path.join(os.path.expanduser('~'), 'Downloads')
 
 user = "postgres"
 host = "localhost"
@@ -14,10 +16,3 @@ password = "yj9928"
 
 rotation = 0
 
-Machine = 'RF'
-RF_Tree = 5000
-RF_njob = -1
-RF_Depth = 50
-RF_MinLeaf = 2
-RFMF = 'sqrt'
-max_samples = None  # 0.9

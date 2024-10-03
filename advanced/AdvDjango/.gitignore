@@ -1,2 +1,7 @@
 .idea/
 __pycache__/
+db.sqlite3
+*.pyc
+*.log
+local_settings.py
+media/
