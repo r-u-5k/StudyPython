@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 import params as pa
 
 
@@ -18,12 +19,16 @@ def driver_setting(DownloadPath):
                                               "download.directory_upgrade": True,
                                               "safebrowsing.for_trusted_sources_enabled": False,
                                               "safebrowsing.enabled": False})
+
     # options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-sha-usage")
+
     service = Service()
+
     driver = webdriver.Chrome(service=service, options=options)
     driver.implicitly_wait(pa.waitseconds)
+
     return driver
 
 
@@ -32,12 +37,6 @@ def macro():
     driver.get("https://ecampus.konkuk.ac.kr/ilos/main/member/login_form.acl")
     print('Run Website')
     time.sleep(pa.waitseconds)
-    driver.find_element(By.XPATH,
-                        "/html/body/div[3]/div[2]/div/div[2]/form[2]/div/div/div/fieldset/input[1]").send_keys(
-        pa.userid)
-    driver.find_element(By.XPATH,
-                        "/html/body/div[3]/div[2]/div/div[2]/form[2]/div/div/div/fieldset/input[2]").send_keys(
-        pa.password)
     driver.find_element(By.XPATH, "/html/body/div[3]/div[2]/div/div[2]/form[2]/div/div/div/div[1]").click()
     time.sleep(pa.waitseconds)
 
@@ -61,15 +60,18 @@ def macro():
         EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'lecture_container')]"))
     )
     print(f"Found {len(lectures)} lectures")
+
     for i, lecture in enumerate(lectures, start=1):
         try:
             print(f"Checking lecture {i}...")
             progress_text = lecture.find_element(By.XPATH, ".//div[@class='progress-text']").text
             print(f"Lecture {i} progress: {progress_text}")
+
             if progress_text == "0/1":
                 print(f"Starting lecture {i}")
                 lecture.click()
                 time.sleep(pa.waitseconds)
+
                 time_element = WebDriverWait(driver, 20).until(
                     EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'video_time')]"))
                 )
@@ -77,12 +79,14 @@ def macro():
                 time_obj = datetime.strptime(time_str, "%M:%S")
                 total_seconds = time_obj.minute * 60 + time_obj.second
                 print(f"Lecture {i} duration: {total_seconds} seconds")
+
                 play_button = WebDriverWait(driver, 20).until(
                     EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'vjs-play-control')]"))
                 )
                 play_button.click()
                 print(f"Watching lecture {i} for {total_seconds} seconds")
                 time.sleep(total_seconds)
+
                 back_button = WebDriverWait(driver, 20).until(
                     EC.element_to_be_clickable((By.XPATH, "//a[contains(@class, 'learning_content_close')]"))
                 )
@@ -98,3 +102,7 @@ def macro():
 
 if __name__ == "__main__":
     macro()
+
+
+
+
