@@ -162,7 +162,7 @@ def performance(Method, Pred, Actual):
 
 
 if __name__ == "__main__":
-    # 22년 1~12월의 데이터를 토대로 23년 1~6월의 데이터를 예측
+    # 22년 1~12월의 데이터를 기반으로 23년 1~6월의 데이터를 예측
     TrainingStart = pd.Timestamp(year=2022, month=1, day=1, hour=0)
     TrainingEnd = pd.Timestamp(year=2022, month=12, day=31, hour=23)
     TestingStart = pd.Timestamp(year=2023, month=1, day=1, hour=0)
