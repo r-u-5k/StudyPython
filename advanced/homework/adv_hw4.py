@@ -65,9 +65,9 @@ def regression():
     )
 
 
-def cross_validation(X, y, n_splits=5):
+def cross_validation(X, y):
     model = regression()
-    tscv = TimeSeriesSplit(n_splits=n_splits)
+    tscv = TimeSeriesSplit(n_splits=5)
 
     # MAE 점수 계산 (음수 값으로 반환되므로 양수로 변환)
     mae_scores = -cross_val_score(model, X, y, cv=tscv, scoring='neg_mean_absolute_error')
@@ -78,7 +78,7 @@ def cross_validation(X, y, n_splits=5):
     return np.mean(mae_scores)
 
 
-def grid_search(X, y, n_splits=5):
+def grid_search(X, y):
     base_model = regression()
 
     # 기존 설정을 중심으로 탐색 범위 설정
@@ -91,7 +91,7 @@ def grid_search(X, y, n_splits=5):
         'max_samples': [pa.max_samples//2, pa.max_samples, pa.max_samples*2],
     }
 
-    tscv = TimeSeriesSplit(n_splits=n_splits)
+    tscv = TimeSeriesSplit(n_splits=5)
 
     grid_search = GridSearchCV(
         estimator=base_model,
